@@ -1,5 +1,7 @@
 package pl.kul.medicalcenter.appointment;
 
+import pl.kul.medicalcenter.statemachine.AppointmentStateMachine;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,11 +10,23 @@ import java.util.Optional;
 
 public final class AppointmentService {
     private final AppointmentRepository appointmentRepository;
+    private final AppointmentStateMachine appointmentStateMachine;
 
     public AppointmentService(AppointmentRepository appointmentRepository) {
+        this(appointmentRepository, new AppointmentStateMachine());
+    }
+
+    public AppointmentService(
+            AppointmentRepository appointmentRepository,
+            AppointmentStateMachine appointmentStateMachine
+    ) {
         this.appointmentRepository = Objects.requireNonNull(
                 appointmentRepository,
                 "appointmentRepository cannot be null"
+        );
+        this.appointmentStateMachine = Objects.requireNonNull(
+                appointmentStateMachine,
+                "appointmentStateMachine cannot be null"
         );
     }
 
@@ -35,11 +49,16 @@ public final class AppointmentService {
     }
 
     public Appointment cancelAppointment(Long id) {
-        requireId(id);
-        Appointment appointment = appointmentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Appointment does not exist: " + id));
+        return changeStatus(id, AppointmentStatus.CANCELLED);
+    }
 
-        return appointmentRepository.save(appointment.withStatus(AppointmentStatus.CANCELLED));
+    public Appointment changeStatus(Long appointmentId, AppointmentStatus newStatus) {
+        requireId(appointmentId);
+        Objects.requireNonNull(newStatus, "newStatus cannot be null");
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new IllegalArgumentException("Appointment does not exist: " + appointmentId));
+        Appointment updatedAppointment = appointmentStateMachine.changeStatus(appointment, newStatus);
+        return appointmentRepository.save(updatedAppointment);
     }
 
     public Optional<Appointment> findAppointmentById(Long id) {
