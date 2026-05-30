@@ -102,19 +102,19 @@ Na Windows:
 
 ### Widok pacjentów
 
-Miejsce na zrzut ekranu.
+![Widok pacjentów](docs/screenshots/patients.png)
 
 ### Widok lekarzy
 
-Miejsce na zrzut ekranu.
+![Widok lekarzy](docs/screenshots/doctors.png)
 
 ### Widok wizyt
 
-Miejsce na zrzut ekranu.
+![Widok wizyt](docs/screenshots/appointments.png)
 
 ### Widok raportów
 
-Miejsce na zrzut ekranu.
+![Widok raportów](docs/screenshots/reports.png)
 
 ## Autorzy
 
