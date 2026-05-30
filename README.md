@@ -102,19 +102,19 @@ Na Windows:
 
 ### Widok pacjentów
 
-![Widok pacjentów](docs/screenshots/patients.png)
+![Widok pacjentów](./docs/screenshots/patients.png)
 
 ### Widok lekarzy
 
-![Widok lekarzy](docs/screenshots/doctors.png)
+![Widok lekarzy](./docs/screenshots/doctors.png)
 
 ### Widok wizyt
 
-![Widok wizyt](docs/screenshots/appointments.png)
+![Widok wizyt](./docs/screenshots/appointments.png)
 
 ### Widok raportów
 
-![Widok raportów](docs/screenshots/reports.png)
+![Widok raportów](./docs/screenshots/reports.png)
 
 ## Autorzy
 
